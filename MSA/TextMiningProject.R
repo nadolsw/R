@@ -1,4 +1,10 @@
 ###Text Mining Project###
+###This project uses data from Kaggle related to Hillary Clinton's emails released by ###
+###the State Department as a result of the Benghazi investigations ###
+###to perform text mining and sentiment analysis ##
+
+###More info can be found here: https://www.kaggle.com/kaggle/hillary-clinton-emails ###
+###Data: https://www.kaggle.com/kaggle/hillary-clinton-emails/downloads/hillary-clinton-emails.zip/2 ###
 
 ###Set working directory and read in the csv file###-----------
 setwd("C:/Users/William/Desktop/NCSU MSA/Fall 2015/Text Mining/Homework/Clinton E-mails")
@@ -207,35 +213,20 @@ clinton = findAssocs(tdm,"clinton",0.54)
 ###End finding highly associated words###
 
 findAssocs(tdm, "american",0.54)
-
 findAssocs(tdm, "benghazi",0.83)
-
 findAssocs(tdm, "libya",0.75)
-
 findAssocs(tdm, "boehner",0.58)
-
 findAssocs(tdm, "limbaugh", 0.7)
-
 findAssocs(tdm, "obama", 0.7)
-
 findAssocs(tdm, "iraq", 0.57)
-
 findAssocs(tdm, "afghanistan", 0.65)
-
 findAssocs(tdm, "haiti", 0.7)
-
 findAssocs(tdm, "reid", 0.7)
-
 findAssocs(tdm, "pelosi", 0.48)
-
 findAssocs(tdm, "tucson", 0.95)
-
 findAssocs(tdm, "illuminati", 0.85)
-
 findAssocs(tdm, "beck", 0.8)
-
 findAssocs(tdm, "gun", 0.85)
-
 
 
 ###Creating word clouds for body text and subject line###------------
@@ -337,10 +328,7 @@ qplot(names(topicssub), ..count.. , data=topicssub, geom="bar",
 #End Pretty graphic subject
 
 
-
-
-
-
+                                 
 ###Sentiment Analysis###-----------
 
 EmailsVector<- as.vector.factor(Emails$ExtractedBodyText)
