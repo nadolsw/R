@@ -4,26 +4,38 @@
 setwd("C:/Users/William/Desktop/NCSU MSA/Fall 2015/Text Mining/Homework/Clinton E-mails")
 Emails= read.csv("Emails.csv")
 summary(Emails)
-#str(Emails)
-#summary(Emails$ExtractedSubject)
+str(Emails)
+summary(Emails$ExtractedSubject)
 ##End basic look at data##
 
 ###Necessary Packages###-----------
-#install.packages("tm")
+install.packages("tm", repos="http://R-Forge.R-project.org")
+install.packages("SnowballC")
+install.packages("stringi")
+install.packages("arules")
+install.packages("wordcloud")
+install.packages("ggplot2")
+install.packages("NbClust")
+install.packages("qdap")
+install.packages("proxy")
+install.packages("cluster")
+install.packages("fpc")
+install.packages(c("RTextTools","topicmodels"))
+install.packages("igraph")
+install.packages("graph")
+install.packages("syuzhet")
+download.file("http://cran.cnr.berkeley.edu/src/contrib/Archive/Rstem/Rstem_0.4-1.tar.gz", "Rstem_0.4-1.tar.gz") 
+install.packages("Rstem_0.4-1.tar.gz", repos=NULL, type="source")
+download.file("http://cran.r-project.org/src/contrib/Archive/sentiment/sentiment_0.2.tar.gz", "sentiment.tar.gz")
+install.packages("sentiment.tar.gz", repos=NULL, type="source")
+
 library(tm)
-#install.packages("SnowballC")
 library(SnowballC)
-#install.packages("stringi")
 library(stringi)
-#install.packages("arules")
 library(arules)
-#install.packages("wordcloud")
 library(wordcloud)
-#install.packages("ggplot2")
 library(ggplot2)
-#install.packages("NbClust")
 library(NbClust)
-#install.packages("qdap")
 library(qdap)
 library(data.table)
 library(stringr)
@@ -31,26 +43,15 @@ library(plyr)
 library(dplyr)
 library(magrittr)
 library(tm)
-#install.packages("proxy")
 library(proxy)
 library(RColorBrewer)
-#install.packages("cluster")
 library(cluster)
-#install.packages("fpc")
 library(fpc)
-#install.packages(c("RTextTools","topicmodels"))
 library(RTextTools)
 library(topicmodels)
-#install.packages("igraph")
 library(igraph)
-install.packages("graph")
 library(graph)
-#install.packages("syuzhet")
 library('syuzhet')
-#download.file("http://cran.cnr.berkeley.edu/src/contrib/Archive/Rstem/Rstem_0.4-1.tar.gz", "Rstem_0.4-1.tar.gz") 
-#install.packages("Rstem_0.4-1.tar.gz", repos=NULL, type="source")
-#download.file("http://cran.r-project.org/src/contrib/Archive/sentiment/sentiment_0.2.tar.gz", "sentiment.tar.gz")
-#install.packages("sentiment.tar.gz", repos=NULL, type="source")
 
 ##End installing and library packages##
 
@@ -64,7 +65,7 @@ corpus
 ##Convert to lowercase##
 corpus <- tm_map(corpus, content_transformer(tolower))
 corpus = tm_map(corpus,PlainTextDocument)
-#Not sure what this line does, but it seems to be keeping the data in the right type. It doesn't work well if you don't do this though
+#Ensures the data is kept in the right type.
 
 ##Remove punctuation##
 corpus = tm_map(corpus,removePunctuation)
@@ -86,7 +87,6 @@ head(corpus)
 
 dataframe<-data.frame(text=unlist(sapply(corpus, `[`, "content")), 
                       stringsAsFactors=F)
-
 ###End cleaning of body text###
 
 ###Create Document Term Matrix of Body Text###----------
@@ -105,6 +105,7 @@ termFrequency <- rowSums(as.matrix(tdm[tt,]))
 qplot(names(termFrequency), termFrequency,
       geom="bar", stat="identity", xlab = "Terms", ylab = "Term Frequency") +
   coord_flip()
+
 ###End Creating bar graph##
 
 ###Remove sparse terms for body text###------------
